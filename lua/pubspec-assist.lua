@@ -57,6 +57,7 @@ local icons = {
 ---@field error table
 ---@field name string
 ---@field type number
+---@field ui table
 
 ---@table<number, table<number, Package>>
 local packages = {}
@@ -178,7 +179,9 @@ local function get_lnum_lookup(lines)
       local key = line:match(".-:")
       if key then
         local package_name = vim.trim(key:gsub(":", ""))
-        lookup[package_name] = lnum
+        if not lookup[package_name] then
+          lookup[package_name] = lnum
+        end
       end
     end
   end
